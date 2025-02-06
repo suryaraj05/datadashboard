@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload - Data Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        .error, .success {
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .error {
+            color: #d9534f;
+            background: #f8d7da;
+        }
+
+        .success {
+            color: #28a745;
+            background: #d4edda;
+        }
+
+        .file-preview {
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        .file-preview table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .file-preview th, .file-preview td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .file-preview th {
+            background: #2575fc;
+            color: white;
+        }
+
+        .file-preview tbody tr:nth-child(odd) {
+            background: #f9f9f9;
+        }
+
+        .file-preview tbody tr:hover {
+            background: #d1ecf1;
+            transition: 0.3s;
+        }
+
+        .btn-dashboard {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 25px;
+            border: none;
+        }
+
+        .btn-dashboard:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer strong {
+            color: #2575fc;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        File Upload - Data Dashboard
+    </header>
+
+    <div class="container">
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% else %}
+            <p class="success">File uploaded successfully!</p>
+            
+            <div class="file-preview">
+                <p><strong>Preview of the first 5 rows and 5 columns in the dataset:</strong></p>
+                <table>
+                    <thead>
+                        <tr>
+                            {% for column in preview_data.0 %}
+                                <th>{{ column }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in preview_data %}
+                            <tr>
+                                {% for value in row.values %}
+                                    <td>{{ value }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Button to navigate to the dashboard -->
+            <a href="/dashboard/" class="btn-dashboard">Go to Dashboard</a>
+        {% endif %}
+    </div>
+
+    <footer>
+        &copy; 2025 Interactive Data Dashboard | All rights reserved
+    </footer>
+</body>
+</html>
